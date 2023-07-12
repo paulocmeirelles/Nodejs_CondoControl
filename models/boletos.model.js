@@ -15,6 +15,13 @@ const Boleto = pg.define(
       type: Sequelize.STRING,
       allowNull: true,
     },
+    id_lote: {
+      type: Sequelize.INTEGER,
+      references: {
+        model: Lote,
+        key: "id",
+      },
+    },
     valor: {
       type: Sequelize.DECIMAL(10, 2),
       allowNull: true,
@@ -36,6 +43,8 @@ const Boleto = pg.define(
   { underscored: true, timestamps: false }
 );
 
-Boleto.belongsTo(Lote, { foreignKey: "id" });
+// Boleto.sync({ force: true });
+
+Lote.hasOne(Boleto, { foreignKey: "id_lote", sourceKey: "id" });
 
 export default Boleto;

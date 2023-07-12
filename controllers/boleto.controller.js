@@ -43,9 +43,9 @@ async function deleteBoleto(req, res, next) {
 async function updateBoleto(req, res, next) {
   try {
     const data = req.body;
-    if (!data.nome || !data.boletoId) {
+    if (!data.id) {
       return res.status(422).json({
-        message: "nome e boleto_id são obrigatórios",
+        message: "id é obrigatórios",
       });
     }
     res.send(await boletoService.updateBoleto(data));

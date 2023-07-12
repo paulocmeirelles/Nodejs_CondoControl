@@ -8,9 +8,8 @@ import * as dotenv from "dotenv";
 const app = express();
 
 // Routes
-// import BoletosRouter from "./routes/boleto.route.js"
-// app.use("/boletos", BoletosRouter);
-
+import BoletosRouter from "./routes/boleto.route.js";
+app.use("/boletos", BoletosRouter);
 import LotesRouter from "./routes/lote.route.js";
 app.use("/lote", LotesRouter);
 

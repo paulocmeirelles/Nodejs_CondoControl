@@ -18,6 +18,7 @@ const Lote = pg.define(
     ativo: {
       type: Sequelize.STRING,
       allowNull: true,
+      defaultValue: true,
     },
     criado_em: {
       type: "TIMESTAMP",

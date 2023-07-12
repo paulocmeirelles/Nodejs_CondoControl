@@ -41,7 +41,7 @@ async function deleteLote(req, res, next) {
 async function updateLote(req, res, next) {
   try {
     const data = req.body;
-    if (!data.nome || !data.loteId) {
+    if (!data.nome || !data.id) {
       return res.status(422).json({
         message: "nome e lote_id são obrigatórios",
       });
