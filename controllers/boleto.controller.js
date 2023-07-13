@@ -3,7 +3,7 @@ import boletoService from "../services/boleto.service.js";
 async function createBoleto(req, res, next) {
   try {
     const data = req.body;
-    if (!data.nome || !data.id_lote) {
+    if (!data.nome_sacado || !data.id_lote) {
       return res
         .status(422)
         .json({ message: "nome e id_lote são obrigatório" });

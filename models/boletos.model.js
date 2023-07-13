@@ -33,6 +33,7 @@ const Boleto = pg.define(
     ativo: {
       type: Sequelize.BOOLEAN,
       allowNull: true,
+      defaultValue: true,
     },
     criado_em: {
       type: "TIMESTAMP",

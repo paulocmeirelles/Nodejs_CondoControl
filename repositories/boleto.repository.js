@@ -9,15 +9,17 @@ async function createBoleto(data) {
   }
 }
 
+async function createBoletos(json) {
+  try {
+    return await Boleto.bulkCreate(json);
+  } catch (err) {
+    throw err;
+  }
+}
+
 async function getBoletos() {
   try {
-    return await Boleto.findAll({
-      include: [
-        {
-          model: Lote,
-        },
-      ],
-    });
+    return await Boleto.findAll();
   } catch (err) {
     throw err;
   }
@@ -25,13 +27,7 @@ async function getBoletos() {
 
 async function getBoleto(id) {
   try {
-    return await Boleto.findByPk(id, {
-      include: [
-        {
-          model: Lote,
-        },
-      ],
-    });
+    return await Boleto.findByPk(id);
   } catch (err) {
     throw err;
   }
@@ -53,7 +49,7 @@ async function deleteBoleto(id) {
   try {
     await Boleto.destroy({
       where: {
-        boletoId: id,
+        id: id,
       },
     });
     return `Boleto ${id} foi deletado`;
@@ -86,6 +82,7 @@ async function updateBoleto(data) {
 
 export default {
   createBoleto,
+  createBoletos,
   getBoleto,
   getBoletos,
   getBoletosByLote,
