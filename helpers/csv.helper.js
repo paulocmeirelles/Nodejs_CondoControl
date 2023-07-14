@@ -1,3 +1,9 @@
+function csvUpload(csv, json_lote) {
+  let rows = csvToArray(csv, json_lote.id);
+  const json = arrayToJSON(rows);
+  return json;
+}
+
 function csvToArray(csv, id_lote) {
   //csv em buffer
   const rawRows = csv.toString().split("\n");
@@ -35,4 +41,5 @@ export default {
   csvToArray,
   addLoteToArray,
   arrayToJSON,
+  csvUpload,
 };

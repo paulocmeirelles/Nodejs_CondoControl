@@ -1,5 +1,6 @@
 import Boleto from "../models/boletos.model.js";
 import Lote from "../models/lotes.model.js";
+import { Op } from "sequelize";
 
 async function createBoleto(data) {
   try {
@@ -20,6 +21,20 @@ async function createBoletos(json) {
 async function getBoletos() {
   try {
     return await Boleto.findAll();
+  } catch (err) {
+    throw err;
+  }
+}
+
+async function getBoletosFiltered(data) {
+  try {
+    return await Boleto.findAll({
+      where: {
+        nome_sacado: { [Op.startsWith]: data.nome },
+        valor: { [Op.between]: [data.valor_inicial, data.valor_final] },
+        id_lote: { [Op.between]: [data.lote_init, data.lote_end] },
+      },
+    });
   } catch (err) {
     throw err;
   }
@@ -88,4 +103,5 @@ export default {
   getBoletosByLote,
   deleteBoleto,
   updateBoleto,
+  getBoletosFiltered,
 };

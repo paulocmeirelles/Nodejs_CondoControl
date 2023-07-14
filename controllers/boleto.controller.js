@@ -16,7 +16,11 @@ async function createBoleto(req, res, next) {
 
 async function getBoletos(req, res, next) {
   try {
-    res.send(await boletoService.getBoletos());
+    if (req.url.includes("?")) {
+      res.send(await boletoService.getBoletosFiltered(req.query));
+    } else {
+      res.send(await boletoService.getBoletos());
+    }
   } catch (err) {
     next(err);
   }

@@ -1,7 +1,15 @@
 import boletoRepository from "../repositories/boleto.repository.js";
+import boletoHelper from "../helpers/boleto.helper.js";
 
 async function createBoleto(data) {
   return await boletoRepository.createBoleto(data);
+}
+
+async function getBoletosFiltered(data) {
+  data.nome === undefined ? (data.nome = "") : data.nome;
+  data = boletoHelper.verifyValorBoleto(data);
+  data = boletoHelper.verifyLoteBoleto(data);
+  return await boletoRepository.getBoletosFiltered(data);
 }
 
 async function getBoletos() {
@@ -26,4 +34,5 @@ export default {
   getBoleto,
   deleteBoleto,
   updateBoleto,
+  getBoletosFiltered,
 };
