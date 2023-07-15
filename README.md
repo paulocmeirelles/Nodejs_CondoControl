@@ -51,6 +51,8 @@
 
 Primeiro, após extrair o projeto do git, execute os comandos abaixo dentro da pasta do projeto.
 
+Crie um arquivo .env e nele coloque as credenciais para a conexão com o banco de dados postgresql. Utilize o arquivo setting.env como base.
+
 ```
 npm install
 ```
@@ -123,6 +125,8 @@ Os arquivos na pasta raiz (lotes.csv e boletos.pdf) são importantes para resolv
 ## How to setup
 
 First, after extract the project from git, run the commands below inside of the folder.
+
+Make a .env file and inside of it put all credentials to connect to postgresql database. Take setting.env as an example.
 
 ```
 npm install

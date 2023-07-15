@@ -2,7 +2,7 @@ import Sequelize from "sequelize";
 import pg from "../repositories/connectPG.js";
 
 const Lote = pg.define(
-  "lote",
+  "lotes",
   {
     id: {
       type: Sequelize.INTEGER,

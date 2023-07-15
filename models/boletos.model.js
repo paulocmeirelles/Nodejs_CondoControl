@@ -3,7 +3,7 @@ import Lote from "../models/lotes.model.js";
 import pg from "../repositories/connectPG.js";
 
 const Boleto = pg.define(
-  "boleto",
+  "boletos",
   {
     id: {
       type: Sequelize.INTEGER,
@@ -44,8 +44,8 @@ const Boleto = pg.define(
   { underscored: true, timestamps: false }
 );
 
-// Boleto.sync({ force: true });
+Boleto.sync({ force: true });
 
-Lote.hasOne(Boleto, { foreignKey: "id_lote", sourceKey: "id" });
+// Boleto.belongsTo(Lote, { foreignKey: "id" });
 
 export default Boleto;
