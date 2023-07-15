@@ -2,7 +2,7 @@ import loteRepository from "../repositories/lote.repository.js";
 import boletoRepository from "../repositories/boleto.repository.js";
 
 async function createLote(data) {
-  const lote = await loteRepository.getLoteByNome(data.nome);
+  const lote = await getLoteByName(data.nome);
   if (lote.length > 0) {
     return { status: 422, message: "Lote já existe" };
   } else {
@@ -16,6 +16,10 @@ async function getLotes() {
 
 async function getLote(id) {
   return await loteRepository.getLote(id);
+}
+
+async function getLoteByName(nome) {
+  return await loteRepository.getLoteByName(nome);
 }
 
 async function deleteLote(id) {
@@ -37,4 +41,5 @@ export default {
   getLote,
   deleteLote,
   updateLote,
+  getLoteByName,
 };

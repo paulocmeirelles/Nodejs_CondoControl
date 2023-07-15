@@ -50,9 +50,22 @@ async function getBoleto(id) {
 
 async function getBoletosByLote(id) {
   try {
-    return await Boleto.findAll({
+    return await Boleto.findOne({
       where: {
         id_lote: id,
+      },
+      order: [["id", "DESC"]],
+    });
+  } catch (err) {
+    throw err;
+  }
+}
+
+async function getBoletosByName(name) {
+  try {
+    return await Boleto.findOne({
+      where: {
+        nome_sacado: name,
       },
     });
   } catch (err) {
@@ -104,4 +117,5 @@ export default {
   deleteBoleto,
   updateBoleto,
   getBoletosFiltered,
+  getBoletosByName,
 };

@@ -1,4 +1,5 @@
-import uploadService from "../services/upload.service.js";
+import loteService from "../services/lote.service.js";
+import boletoService from "../services/boleto.service.js";
 import csvHelper from "../helpers/csv.helper.js";
 import pdfHelper from "../helpers/pdf.helper.js";
 
@@ -14,12 +15,22 @@ async function uploadFile(req, res, next) {
   } else if (req.file.mimetype === "text/csv") {
     try {
       let csv = req.file["buffer"];
-      const json_lote = await uploadService.createLote({
-        nome: req.file.originalname,
-      });
-      const json = csvHelper.csvUpload(csv, json_lote);
-      await uploadService.createBoletos(json);
-      res.send(csv.toString());
+      if (csv.length === 0) {
+        return res.status(422).json({ message: "csv vazio" });
+      }
+      const json = csvHelper.csvUpload(csv);
+      for (let value of json) {
+        const lote = await loteService.getLoteByName(
+          value.unidade.padStart(4, "0")
+        );
+        if (lote.id) {
+          value.id_lote = lote.id;
+          boletoService.createBoleto(value);
+        } else {
+          console.log(`${value.unidade} não existe no banco`);
+        }
+      }
+      res.send(json);
     } catch (err) {
       next(err);
     }

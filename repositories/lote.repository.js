@@ -24,9 +24,9 @@ async function getLote(id) {
   }
 }
 
-async function getLoteByNome(nome) {
+async function getLoteByName(nome) {
   try {
-    return await Lote.findAll({
+    return await Lote.findOne({
       where: {
         nome: nome,
       },
@@ -74,5 +74,5 @@ export default {
   getLotes,
   deleteLote,
   updateLote,
-  getLoteByNome,
+  getLoteByName,
 };

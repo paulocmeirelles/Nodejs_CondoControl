@@ -1,4 +1,6 @@
 import boletoService from "../services/boleto.service.js";
+import pdfHelper from "../helpers/pdf.helper.js";
+import fs from "fs";
 
 async function createBoleto(req, res, next) {
   try {
@@ -16,8 +18,19 @@ async function createBoleto(req, res, next) {
 
 async function getBoletos(req, res, next) {
   try {
-    if (req.url.includes("?")) {
+    if (req.url.includes("?") && !req.url.includes("relatorio")) {
       res.send(await boletoService.getBoletosFiltered(req.query));
+    } else if (req.url.includes("relatorio")) {
+      const data = await boletoService.getBoletosReport(req.query);
+      await pdfHelper.convertToBase64(data);
+      fs.readFile("./report.pdf", (err, pdfBuffer) => {
+        if (err) {
+          console.log(err);
+        } else {
+          res.send({ base64: pdfBuffer.toString("base64") });
+        }
+      });
+      // res.send({ base64: base64 });
     } else {
       res.send(await boletoService.getBoletos());
     }

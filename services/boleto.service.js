@@ -12,6 +12,11 @@ async function getBoletosFiltered(data) {
   return await boletoRepository.getBoletosFiltered(data);
 }
 
+async function getBoletosReport(data) {
+  return await boletoRepository.getBoletos();
+  // return await boletoRepository.getBoletosByLote(data.relatorio);
+}
+
 async function getBoletos() {
   return await boletoRepository.getBoletos();
 }
@@ -35,4 +40,5 @@ export default {
   deleteBoleto,
   updateBoleto,
   getBoletosFiltered,
+  getBoletosReport,
 };

@@ -1,10 +1,10 @@
-function csvUpload(csv, json_lote) {
-  let rows = csvToArray(csv, json_lote.id);
+function csvUpload(csv) {
+  let rows = csvToArray(csv);
   const json = arrayToJSON(rows);
   return json;
 }
 
-function csvToArray(csv, id_lote) {
+function csvToArray(csv) {
   //csv em buffer
   const rawRows = csv.toString().split("\n");
   let rows = [];
@@ -12,7 +12,7 @@ function csvToArray(csv, id_lote) {
     rows.push(i.replace("\r", "").split(","));
   }
   rows.shift();
-  rows = addLoteToArray(rows, id_lote);
+  // rows = addLoteToArray(rows, id_lote);
   return rows;
 }
 
@@ -30,7 +30,7 @@ function arrayToJSON(array) {
     json.nome_sacado = row[0];
     json.valor = row[2];
     json.linha_digitavel = row[3];
-    json.id_lote = row[4];
+    json.unidade = row[1];
     arrayJSON.push(json);
     json = {};
   }
